@@ -1,0 +1,281 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+    <meta name="author" content="Creative Tim">
+    <title>COVID-19 Tracking App</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{% static "favicon.png" %}" type="image/png">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <!-- Icons -->
+    <link rel="stylesheet" href="{% static "vendor/nucleo/css/nucleo.css" %}" type="text/css">
+    <link rel="stylesheet" href="{% static "vendor/@fortawesome/fontawesome-free/css/all.min.css" %}" type="text/css">
+    <!-- Page plugins -->
+    <link rel="stylesheet" href="{% static "vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css" %}">
+    <link rel="stylesheet" href="{% static "vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" %}">
+    <link rel="stylesheet" href="{% static "vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css" %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href="{% static "css/argon.css"%}" type="text/css">
+</head>
+
+<body>
+
+
+<div class="main-content" id="panel">
+    <!-- Topnav -->
+    <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <h6 class="h2 text-white d-inline-block mb-0">
+                    Welcome to COVID-19 Tracking App! This App was Built for fun!
+                </h6>
+                <ul class="navbar-nav align-items-center ml-md-auto">
+                    <li class="h2 nav-item text-white">
+                        Lets Connect!
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://facebook.com/mmodoucham" class="nav-link" target="_blank">
+                            <i class="fa fa-2x fa-facebook-square"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://instagram.com/mmodoucham" class="nav-link" target="_blank">
+                            <i class="fa fa-2x fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://twitter.com/mmodoucham" class="nav-link" target="_blank">
+                            <i class="fa fa-2x fa-twitter-square"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://github.com/mmodoucham" class="nav-link" target="_blank">
+                            <i class="fa fa-2x fa-github-square"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">
+                            Global Report
+                        </h6>
+                    </div>
+                    <div class="col-lg-6 col-5 text-right">
+                        <button  class="btn btn-lg btn-neutral">Daily Report for: {{ time }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats bg-info ">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted text-white mb-0">Total Cases</h5>
+                                <span class="h2 font-weight-bold mb-0 text-white">{{ globalSummary.TotalConfirmed |intcomma }}</span>
+                            </div>
+
+                        </div>
+                        <p class="mt-3 mb-0 text-sm">
+                            <span class="text-success mr-2 text-white text-bold"><i class="fa fa-plus"></i> {{ globalSummary.NewConfirmed | intcomma }}</span>
+                            <span class="text- text-white">New Confirmed</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats bg-success ">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted text-white mb-0">Total Recoveries</h5>
+                                <span class="h2 font-weight-bold mb-0 text-white">{{ globalSummary.TotalRecovered |intcomma }}</span>
+                            </div>
+
+                        </div>
+                        <p class="mt-3 mb-0 text-sm">
+                            <span class="text-success mr-2 text-white text-bold"><i class="fa fa-plus"></i> {{ globalSummary.NewRecovered | intcomma }}</span>
+                            <span class="text- text-white">New Recoveries</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats bg-danger ">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted text-white mb-0">Total Deaths</h5>
+                                <span class="h2 font-weight-bold mb-0 text-white">{{ globalSummary.TotalDeaths|intcomma }}</span>
+                            </div>
+
+                        </div>
+                        <p class="mt-3 mb-0 text-sm">
+                            <span class="text-success mr-2 text-white text-bold"><i class="fa fa-plus"></i> {{ globalSummary.NewDeaths | intcomma }}</span>
+                            <span class="text- text-white">New Deaths</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card card-stats bg-warning ">
+                    <!-- Card body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted text-white mb-0">Active Cases</h5>
+                                <span class="h2 font-weight-bold mb-0 text-white">{{ active |intcomma }}</span>
+                            </div>
+
+                        </div>
+                        <p class="mt-3 mb-0 text-sm">
+                            <span class="text-success mr-2 text-white text-bold"><i class=""></i> </span>
+                            <span class="text- text-white"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Table -->
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header">
+                        <h3 class="mb-0">Total Number Of Cases</h3>
+                        <p class="text-sm mb-0">
+                            Table is automatically arranged in descending order of cases, You can search via country or click on a header to filter.
+                        </p>
+                    </div>
+                    <div class="table-responsive py-4">
+                        <table class="table table-flush dataTable" id="datatable-basic" role="grid" aria-describedby="datatable-buttons_info" data-order='[[ 6, "desc" ]]'>
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Country</th>
+                                <th>New Confirmed</th>
+                                <th>New Deaths</th>
+                                <th>Total Deaths</th>
+                                <th>New Recoveries</th>
+                                <th>Total Recoveries</th>
+                                <th>Total Confirmed</th>
+                                <th></th>
+
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Country</th>
+                                <th>New Confirmed</th>
+                                <th>New Deaths</th>
+                                <th>Total Deaths</th>
+                                <th>New Recoveries</th>
+                                <th>Total Recoveries</th>
+                                <th>Total Confirmed</th>
+                                <th></th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for country in countries %}
+                            <tr>
+                                <th>{{ country.Country }}</th>
+                                <th class="text-warning font-weight-bold">{{ country.NewConfirmed|intcomma}}</th>
+                                <th class="text-danger font-weight-bold">{{ country.NewDeaths|intcomma}}</th>
+                                <th class="text-danger font-weight-bold">{{ country.TotalDeaths|intcomma}}</th>
+                                <th class="text-success">{{ country.NewRecovered|intcomma}}</th>
+                                <th class="text-success">{{ country.TotalRecovered|intcomma}}</th>
+                                <th>{{ country.TotalConfirmed|intcomma }}</th>
+                            <th>
+                                <a class="" href="{%  url 'country_view' country.Slug %}">
+                                    <span class="btn-inner--icon"><i class="ni ni-bold-right"></i></span>
+                                    <span class="btn-inner--text">Read More</span>
+                                </a>
+                            </th>
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="footer pt-0">
+            <div class="row align-items-center justify-content-lg-between">
+                <div class="col-lg-6">
+                    <div class="copyright text-center text-lg-left text-muted">
+                        Made with <i style="color: red; font-size: 20px;">♥</i> By <a href="#" class="font-weight-bold ml-1" target="_blank">Modou Cham</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                        <li class="nav-item">
+                            <a href="https://fb.com/mmodoucham" class="nav-link" target="_blank">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://twitter.com/mmodoucham" class="nav-link" target="_blank">
+                                <i class="fa fa-twitter-square"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://instagram.com/mmodoucham" class="nav-link" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://github.com/mmodoucham" class="nav-link" target="_blank">
+                                <i class="fa fa-github-square"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<!-- Argon Scripts -->
+<!-- Core -->
+<script src="{% static "vendor/jquery/dist/jquery.min.js" %}"></script>
+<script src="{% static "vendor/bootstrap/dist/js/bootstrap.bundle.min.js" %}"></script>
+<script src="{% static "vendor/js-cookie/js.cookie.js" %}"></script>
+<script src="{% static "vendor/jquery.scrollbar/jquery.scrollbar.min.js" %}"></script>
+<script src="{% static "vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js" %}"></script>
+<!-- Optional JS -->
+<script src="{% static "vendor/list.js/dist/list.min.js" %}"></script>
+<script src="{% static "vendor/datatables.net/js/jquery.dataTables.min.js" %}"></script>
+<script src="{% static "vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js" %}"></script>
+
+
+<!-- Argon JS -->
+<script src="{% static "js/argon.js" %}"></script>
+<!-- Demo JS - remove this in your project -->
+<script src="{% static "js/demo.min.js" %}"></script>
+</body>
+
+</html>
