@@ -14,6 +14,6 @@ $ pip install -r requirements.txt
 
 Run Server
 ```
-$cd DjangoCovidTracker
-&python3 manage.py runserver
+$ cd DjangoCovidTracker
+$ python3 manage.py runserver
 ```
