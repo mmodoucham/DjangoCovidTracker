@@ -54,16 +54,16 @@ def CountryView(request, country):
         recoveries.append(data['Recovered'])
     for data in json:
         deaths.append(data['Deaths'])
-
-    total_confirmed = json[-1]['Confirmed']
-    total_deaths = json[-1]['Deaths']
-    total_recovered = json[-1]['Recovered']
-    total_active = json[-1]['Active']
-
+    try:
+        total_confirmed = json[-1]['Confirmed']
+        total_deaths = json[-1]['Deaths']
+        total_recovered = json[-1]['Recovered']
+        total_active = json[-1]['Active']
+    except IndexError:
+        return HttpResponse("<h1>No Cases Confirmed!</h1>")
     res = dict(zip(calendar, total_case))
 
     region = json[-1]["Country"]
-
     context = {
         "country": json,
         "calendar": calendar,
